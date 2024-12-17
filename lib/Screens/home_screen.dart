@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:laligurashapp/Screens/favourite_screen.dart';
+import 'package:laligurashapp/Screens/second_screen.dart';
+import 'package:laligurashapp/Screens/tenth_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "assets/slider3.png",
   ];
   ScrollController _scrollController = ScrollController();
+  bool _isClicked = false;
 
   @override
   void initState() {
@@ -47,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 70),
+          SizedBox(height:20),
           Row(
             children: [
               Padding(
@@ -65,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Image.asset("assets/secondicon.png", width: 50),
             ],
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 1),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal, 
             controller: _scrollController, 
@@ -90,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Vegetables",
+                "Vegetablesss",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -99,6 +103,156 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(width:5),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    width:120,
+                    height:170,
+                    decoration: BoxDecoration(
+                      color:Colors.white,
+                      borderRadius:BorderRadius.circular(10),
+                       border: Border.all(
+                            color: const Color.fromARGB(255, 192, 182, 182), 
+                       width: 2.0,        
+                      ),
+                  
+                    ),
+                    
+
+
+
+                     
+                    child:Stack(
+                      children: [
+
+
+                                   Column(
+                        children: [
+                         SizedBox(height:2),
+                           InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TenthScreen()),
+            );
+          },
+          child: Container(
+            width: 200,
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),  
+            ),
+            child: Image.asset(
+              "assets/capcium.png",
+              width:200,
+              height:120,  
+             
+            ),
+          ),
+                           ),
+
+
+
+
+                      SizedBox(height:2),
+                      Text("Capcium", style:TextStyle(fontSize:15, color:Colors.black, fontWeight:FontWeight.bold)),
+                      SizedBox(height:1),
+                      Text("Rs. 140.99"), 
+                         
+                        ]
+                      ),   
+
+  Positioned(
+      right: 2,
+      top: 2,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _isClicked = !_isClicked; // Toggle overlay visibility
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FavouriteScreen()),
+          );
+        },
+        child: Stack(
+          children: [
+            Image.asset(
+              "assets/love.png",
+              height: 40,
+              width: 40,
+              fit: BoxFit.cover,
+            ),
+            if (_isClicked)
+              Container(
+                height: 40,
+                width: 40,
+                color: const Color.fromARGB(255, 11, 61, 13).withOpacity(0.5), // Semi-transparent overlay
+              ),
+          ],
+        ),
+      ),
+    ),    
+
+                      
+                 
+                              
+                      ],
+                    )
+
+
+
+                  ),
+                ),
+              
+              
+                SizedBox(width:2),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    width:120,
+                    height:170,
+                    decoration: BoxDecoration(
+                      color:Colors.white,
+                      borderRadius:BorderRadius.circular(10),
+                       border: Border.all(
+                            color: const Color.fromARGB(255, 192, 182, 182), 
+                       width: 2.0,        
+                      ),
+                  
+                    ),
+                  ),
+                ),
+              
+                SizedBox(width:2),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    width:120,
+                    height:170,
+                    decoration: BoxDecoration(
+                      color:Colors.white,
+                      borderRadius:BorderRadius.circular(10),
+                       border: Border.all(
+                            color: const Color.fromARGB(255, 192, 182, 182), 
+                       width: 2.0,        
+                      ),
+                  
+                    ),
+                  ),
+                )
+              
+              ],
+                        ),
+            )
+    
 
           
         ],
