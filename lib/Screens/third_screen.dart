@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laligurashapp/Screens/fourth_screen.dart';
 import 'package:laligurashapp/Screens/register_screen.dart';
 
 class ThirdScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ body:Stack(
       SizedBox(height:20),
     Center(
       child: TextButton(onPressed: () { 
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>FourthScreen()));
 
       }, child: Text("Next", style:TextStyle(fontSize:17, color:const Color.fromARGB(255, 73, 69, 69))),
       ),
