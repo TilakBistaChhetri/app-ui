@@ -1,21 +1,20 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:laligurashapp/Screens/extra_screen.dart';
 import 'package:laligurashapp/Screens/favourite_screen.dart';
 import 'package:laligurashapp/Screens/productvarity_screen.dart';
-import 'package:laligurashapp/Screens/second_screen.dart';
 import 'package:laligurashapp/Screens/tenth_screen.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import 'package:laligurashapp/details_screen.dart';
+class SelectedproductScreen extends StatefulWidget {
+   
+  const SelectedproductScreen({super.key});
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SelectedproductScreen> createState() => _SelectedproductScreenState();
 }
-class _HomeScreenState extends State<HomeScreen> {
-  ScrollController _scrollController = ScrollController();
+class _SelectedproductScreenState extends State<SelectedproductScreen> {
+    ScrollController _scrollController = ScrollController();
   bool _isClicked = false;
+  //int _currentRating = 0;
   int _currentIndex = 0;
-  @override
+
     List<String> sliderList =[
     "assets/slider1.png",
     "assets/slider2.png",
@@ -32,11 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
     "Capciium", "Potato", "Tomato", "Onion", "Cabbage", "Brinjal"];
     final List<String> priceList=["Rs. 140.99", "Rs. 140.99", "Rs.140.99", "Rs. 140.99", "Rs. 140.99", "Rs. 140.99"];
       final List<bool> isFavorite = [false, false, false, false];
-      int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body:Column(
+        body:Column(
         children: [
           SizedBox(height:27),
           Row(
@@ -113,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           setState(() {
                          _isClicked = !_isClicked;
                           });
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FavouriteScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>FavouriteScreen()));
                         },
                   child: Image.asset(
                 "assets/love.png",
@@ -179,6 +178,59 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
        ),
+        SizedBox(height:5),
+        Container(
+          width:380,
+          height:70,
+          decoration:BoxDecoration(
+            borderRadius:BorderRadius.circular(10),
+            color:const Color.fromARGB(255, 16, 78, 18)
+          ),
+
+          child:Stack(
+            children: [
+              Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left:12),
+                      child: Image.asset(
+                                      'assets/plate.png',
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                    ),
+
+              // Image on the right side
+              Padding(
+                padding: const EdgeInsets.only(right:12),
+                child: Image.asset(
+                  'assets/plate1.png',
+                  width: 50,
+                  height: 50,
+                ),
+              ),
+               Positioned(
+        top: 0,
+        right: 20, 
+        child: Image.asset(
+          'assets/1.png',
+          width: 30, 
+          height: 30, 
+        ),
+           ),
+            ],
+          ),
+          
+
+            ],
+          )
+
+              
+            
+           
+
+        )
       ]
     ),
     // For NavigationBar 
@@ -211,8 +263,9 @@ class _HomeScreenState extends State<HomeScreen> {
         label:"Package",
         ),
       ],
-      currentIndex: 3,
-      ),
+      )
+
     );
   }
 }
+
