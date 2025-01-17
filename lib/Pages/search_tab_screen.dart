@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:laligurashapp/Screens/basket_screen.dart';
 import 'package:laligurashapp/Screens/favourite_screen.dart';
 import 'package:laligurashapp/Screens/productvarity_screen.dart';
 import 'package:laligurashapp/Screens/tenth_screen.dart';
 
-//import 'package:laligurashapp/basket_screen.dart';
-class SelectedproductScreen extends StatefulWidget {
-  const SelectedproductScreen({super.key});
+class SearchtabScreen extends StatefulWidget {
+  const SearchtabScreen({super.key});
+
   @override
-  State<SelectedproductScreen> createState() => _SelectedproductScreenState();
+  State<SearchtabScreen> createState() => _SearchtabScreenState();
 }
 
-class _SelectedproductScreenState extends State<SelectedproductScreen> {
-  ScrollController _scrollController = ScrollController();
+class _SearchtabScreenState extends State<SearchtabScreen> {
+  // for ChipChoise
+  int? _selectedChipIndex;
+  final List<String> labels = [
+    "Vegetables",
+    "Herbs",
+    "leafy",
+    "spices",
+    "roots"
+  ];
+  int? _select;
+  final List<String> text = [
+    "Fresh",
+    "Healthy",
+    "Low Fat",
+    "High Fat",
+    "Sugar",
+    "Fiber"
+  ];
+  // for Container
   bool _isClicked = false;
-  //int _currentRating = 0;
-  int _currentIndex = 0;
-
+  int _currentRating = 0;
   List<String> sliderList = [
     "assets/slider1.png",
     "assets/slider2.png",
@@ -51,8 +66,8 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        SizedBox(height: 27),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        SizedBox(height: 65),
         Row(
           children: [
             Padding(
@@ -70,38 +85,70 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
             Image.asset("assets/secondicon.png", width: 50),
           ],
         ),
-        SizedBox(
-          height: 200,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: sliderList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: AssetImage(
-                              sliderList[index],
-                            ),
-                            fit: BoxFit.cover,
-                          )),
-                    ));
-              }),
-        ),
-        SizedBox(height: 5),
+        SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Vegetables",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          ),
+          padding: const EdgeInsets.only(left: 8.0, right: 8),
+          child: TextField(
+              decoration: InputDecoration(
+            labelText: "Search",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            hintStyle: TextStyle(fontSize: 20),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('assets/search.png', width: 31, height: 27),
+            ),
+          )),
         ),
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
+          child: Wrap(
+              spacing: 12,
+              children: List.generate(labels.length, (index) {
+                return ChoiceChip(
+                  label: Text(labels[index]),
+                  selected: _selectedChipIndex == index,
+                  selectedColor: const Color.fromARGB(255, 22, 117, 25),
+                  onSelected: (bool selected) {
+                    setState(() {
+                      _selectedChipIndex = selected ? index : null;
+                    });
+                  },
+                );
+              })),
+        ),
+
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8),
+          child: Container(
+              width: 400,
+              height: 1,
+              color: const Color.fromARGB(255, 235, 225, 225)),
+        ),
+
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
+          child: Wrap(
+              spacing: 12,
+              children: List.generate(labels.length, (index) {
+                return ChoiceChip(
+                  label: Text(text[index]),
+                  selected: _select == index,
+                  selectedColor: const Color.fromARGB(255, 22, 117, 25),
+                  onSelected: (bool selected) {
+                    setState(() {
+                      _select = selected ? index : null;
+                    });
+                  },
+                );
+              })),
+        ),
+        // GridView
         SizedBox(height: 2),
         Flexible(
           child: GridView.builder(
@@ -199,6 +246,34 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 1),
+                          // for Star Icon
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                                children: List.generate(5, (index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 1),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _currentRating = index + 1;
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.star,
+                                          color: index < _currentRating
+                                              ? const Color.fromARGB(
+                                                  164, 255, 235, 59)
+                                              : Colors.grey,
+                                          size: 12,
+                                        ))),
+                              );
+                            })),
+                          ),
                         ],
                       ),
                     ],
@@ -206,58 +281,10 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
             },
           ),
         ),
-        SizedBox(height: 5),
-        Container(
-            width: 380,
-            height: 70,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color.fromARGB(255, 16, 78, 18)),
-            child: Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Image.asset(
-                        'assets/plate.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                    ),
-
-                    // Image on the right side
-
-                    Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: InkWell(
-                          onTap: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => BasketScreen()));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BasketScreen()));
-                          },
-                          child: Image.asset(
-                            'assets/plate1.png',
-                            width: 50,
-                            height: 50,
-                          ),
-                        )),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  right: 20,
-                  child: Image.asset(
-                    'assets/1.png',
-                    width: 30,
-                    height: 30,
-                  ),
-                ),
-              ],
-            ))
+        SizedBox(height: 6),
+        Center(
+          child: Image.asset("assets/point.png", width: 50, height: 10),
+        ),
       ]),
     );
   }

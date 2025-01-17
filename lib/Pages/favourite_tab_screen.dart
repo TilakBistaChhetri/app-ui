@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({super.key});
+class favouritetabScreen extends StatefulWidget {
+  const favouritetabScreen({super.key});
 
   @override
-  State<FavouriteScreen> createState() => _FavouriteScreenState();
+  State<favouritetabScreen> createState() => _favouritetabScreenState();
 }
 
-class _FavouriteScreenState extends State<FavouriteScreen> {
+class _favouritetabScreenState extends State<favouritetabScreen> {
   ScrollController _scrollController = ScrollController();
   bool _isClicked = false;
   int _currentRating = 0;
@@ -22,6 +22,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 90),
           Center(
@@ -36,6 +37,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             height: 1,
             color: Colors.grey,
           ),
+          SizedBox(height: 5),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -155,19 +157,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         ));
                   }),
             ),
-          ),
-          SizedBox(height: 5),
-          Container(
-            width: 1000,
-            height: 1,
-            color: Colors.red,
-          ),
-          SizedBox(height: 5),
-          Container(
-              decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.red,
-          ))
+          )
         ],
       ),
     );

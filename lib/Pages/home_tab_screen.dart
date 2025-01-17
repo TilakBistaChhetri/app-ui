@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:laligurashapp/Screens/basket_screen.dart';
+import 'package:laligurashapp/Screens/extra_screen.dart';
 import 'package:laligurashapp/Screens/favourite_screen.dart';
 import 'package:laligurashapp/Screens/productvarity_screen.dart';
+//import 'package:laligurashapp/Screens/second_screen.dart';
 import 'package:laligurashapp/Screens/tenth_screen.dart';
 
-//import 'package:laligurashapp/basket_screen.dart';
-class SelectedproductScreen extends StatefulWidget {
-  const SelectedproductScreen({super.key});
+class HometabScreen extends StatefulWidget {
+  const HometabScreen({super.key});
   @override
-  State<SelectedproductScreen> createState() => _SelectedproductScreenState();
+  State<HometabScreen> createState() => _HomeScreenState();
 }
 
-class _SelectedproductScreenState extends State<SelectedproductScreen> {
-  ScrollController _scrollController = ScrollController();
+class _HomeScreenState extends State<HometabScreen> {
   bool _isClicked = false;
-  //int _currentRating = 0;
-  int _currentIndex = 0;
-
+  int _currentRating = 0;
   List<String> sliderList = [
     "assets/slider1.png",
     "assets/slider2.png",
@@ -31,7 +28,7 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
     "assets/brinjal.png"
   ];
   final List<String> titleList = [
-    "Capciium",
+    "Capcium",
     "Potato",
     "Tomato",
     "Onion",
@@ -47,7 +44,6 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
     "Rs. 140.99"
   ];
   final List<bool> isFavorite = [false, false, false, false];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,6 +195,34 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 1),
+                          // for Star Icon
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                                children: List.generate(5, (index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 1),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _currentRating = index + 1;
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.star,
+                                          color: index < _currentRating
+                                              ? const Color.fromARGB(
+                                                  164, 255, 235, 59)
+                                              : Colors.grey,
+                                          size: 12,
+                                        ))),
+                              );
+                            })),
+                          ),
                         ],
                       ),
                     ],
@@ -206,58 +230,6 @@ class _SelectedproductScreenState extends State<SelectedproductScreen> {
             },
           ),
         ),
-        SizedBox(height: 5),
-        Container(
-            width: 380,
-            height: 70,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color.fromARGB(255, 16, 78, 18)),
-            child: Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Image.asset(
-                        'assets/plate.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                    ),
-
-                    // Image on the right side
-
-                    Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: InkWell(
-                          onTap: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => BasketScreen()));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BasketScreen()));
-                          },
-                          child: Image.asset(
-                            'assets/plate1.png',
-                            width: 50,
-                            height: 50,
-                          ),
-                        )),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  right: 20,
-                  child: Image.asset(
-                    'assets/1.png',
-                    width: 30,
-                    height: 30,
-                  ),
-                ),
-              ],
-            ))
       ]),
     );
   }

@@ -11,9 +11,8 @@ class _ExtraScreenState extends State<ExtraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        title:Text("Kathmandu"),
-      )
-    );
+        appBar: AppBar(
+      title: Text("Kathmandu"),
+    ));
   }
 }
